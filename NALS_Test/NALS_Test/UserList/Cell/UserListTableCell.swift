@@ -19,7 +19,15 @@ final class UserListTableCell: UITableViewCell {
         }
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        DispatchQueue.main.async {
+            self.avataImageView.layer.cornerRadius = self.avataImageView.frame.height / 2
+        }
+    }
+    
     private func updateView() {
+        avataImageView.loadImage(imageUrl: viewModel?.user?.avataUrl)
         userNameLabel.text = viewModel?.user?.userName
         gitUrlLabel.text = viewModel?.user?.url
     }

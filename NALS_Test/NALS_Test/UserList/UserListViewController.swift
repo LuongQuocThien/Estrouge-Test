@@ -18,6 +18,7 @@ final class UserListViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
         configView()
+        getUserList()
     }
     
     private func configView() {
@@ -40,12 +41,26 @@ final class UserListViewController: UIViewController {
         gradientLayer.endPoint = CGPoint(x: 1, y: 1)
         gradientView.layer.addSublayer(gradientLayer)
     }
+    
+    private func getUserList() {
+        HUD.show()
+        viewModel.getUserList { [weak self] result in
+            HUD.dismiss()
+            guard let this = self else { return }
+            switch result {
+            case .success:
+                this.tableView.reloadData()
+            case .failure(let error):
+                this.showAlert(message: error.localizedDescription)
+            }
+        }
+    }
 }
 
 extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return viewModel.numberOfRow()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
