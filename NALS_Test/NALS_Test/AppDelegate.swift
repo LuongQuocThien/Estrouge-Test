@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import SVProgressHUD
+
+typealias HUD = SVProgressHUD
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

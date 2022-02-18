@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class User {
+final class User: Codable {
     
     var avataUrl: String?
     var userName: String?
@@ -17,5 +17,19 @@ final class User {
         self.avataUrl = avataUrl
         self.userName = userName
         self.url = url
+    }
+    
+    init(from decoder: Decoder) throws {
+        avataUrl = decoder.decode(CodingKeys.avataUrl, as: String.self)
+        userName = decoder.decode(CodingKeys.userName, as: String.self)
+        url = decoder.decode(CodingKeys.url, as: String.self)
+    }
+}
+
+extension User {
+    enum CodingKeys: String, CodingKey {
+        case avataUrl = "avatar_url"
+        case userName = "login"
+        case url
     }
 }

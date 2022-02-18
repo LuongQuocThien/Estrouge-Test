@@ -1,22 +1,18 @@
-# Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '13.4'
+inhibit_all_warnings!
 
 target 'NALS_Test' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
   # Pods for NALS_Test
-  pod 'Alamofire', '~> 5.5'
+  pod 'Alamofire', '4.8.2'
   pod 'SDWebImage', '~> 5.0'
-
+  pod 'SVProgressHUD'
+  
+  end
 
   target 'NALS_TestTests' do
     inherit! :search_paths
     # Pods for testing
   end
-
-  target 'NALS_TestUITests' do
-    # Pods for testing
-  end
-
-end
