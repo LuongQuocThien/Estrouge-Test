@@ -9,6 +9,7 @@ target 'NALS_Test' do
   pod 'Alamofire', '4.8.2'
   pod 'SDWebImage', '~> 5.0'
   pod 'SVProgressHUD'
+  pod 'RealmSwift', '~> 10.22'
   
   end
 

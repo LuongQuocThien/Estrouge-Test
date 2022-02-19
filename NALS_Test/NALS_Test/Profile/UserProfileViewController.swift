@@ -36,8 +36,8 @@ final class UserProfileViewController: UIViewController {
             switch result {
             case .success:
                 this.updateView()
-            case .failure(let error):
-                this.showAlert(message: error.localizedDescription)
+            case .failure(_):
+                break
             }
         }
     }

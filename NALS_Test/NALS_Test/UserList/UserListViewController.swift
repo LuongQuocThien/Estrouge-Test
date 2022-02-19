@@ -25,6 +25,7 @@ final class UserListViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
         configView()
+        loadDBData()
         getUserList()
     }
     
@@ -65,9 +66,16 @@ final class UserListViewController: UIViewController {
             case .success:
                 this.updateView()
             case .failure(let error):
-                this.showAlert(message: error.localizedDescription)
+                if this.viewModel.users.isEmpty {
+                    this.showAlert(message: error.localizedDescription)
+                }
             }
+            this.updateView()
         }
+    }
+    
+    private func loadDBData() {
+        viewModel.getDBData()
     }
     
     @objc private func didPullToRefresh() {

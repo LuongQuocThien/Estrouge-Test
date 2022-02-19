@@ -19,6 +19,10 @@ final class UserListTableCell: UITableViewCell {
         }
     }
     
+    override func prepareForReuse() {
+        avataImageView.image = nil
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         DispatchQueue.main.async {
@@ -27,7 +31,9 @@ final class UserListTableCell: UITableViewCell {
     }
     
     private func updateView() {
-        avataImageView.loadImage(imageUrl: viewModel?.avataUrl)
+        if let imageData = viewModel?.imageData {
+            avataImageView.image = UIImage(data: imageData)
+        }
         userNameLabel.text = viewModel?.userName
         gitUrlLabel.text = viewModel?.url
     }

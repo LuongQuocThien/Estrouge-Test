@@ -12,7 +12,12 @@ struct GetUserAPI {
     let endpoint = "https://api.github.com/users"
     
     func getUserList(completion: @escaping Completion<[User]>) {
-        Alamofire.request(endpoint, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON { response in
+        Alamofire.SessionManager.default.requestWithoutCache(endpoint,
+                                                             method: .get,
+                                                             parameters: nil,
+                                                             encoding: URLEncoding.default,
+                                                             headers: nil)
+            .responseJSON { response in
             switch response.result {
             case .success(let value):
                 guard let data = try?
