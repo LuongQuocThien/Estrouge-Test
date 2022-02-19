@@ -18,13 +18,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wub-7G-Rgk">
-                        <rect key="frame" x="8" y="16" width="46" height="19.5"/>
-                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                        <rect key="frame" x="8" y="16" width="41" height="17"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSl-NX-OmB">
-                        <rect key="frame" x="8" y="51.5" width="33" height="16"/>
+                        <rect key="frame" x="8" y="45" width="33" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -34,7 +34,7 @@
                     <constraint firstItem="Wub-7G-Rgk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="9li-hf-k6w"/>
                     <constraint firstItem="Wub-7G-Rgk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="G1U-gm-NYS"/>
                     <constraint firstItem="qSl-NX-OmB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="WgX-Yb-8ys"/>
-                    <constraint firstItem="qSl-NX-OmB" firstAttribute="top" secondItem="Wub-7G-Rgk" secondAttribute="bottom" constant="16" id="wbf-P7-Bqs"/>
+                    <constraint firstItem="qSl-NX-OmB" firstAttribute="top" secondItem="Wub-7G-Rgk" secondAttribute="bottom" constant="12" id="wbf-P7-Bqs"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -10,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserListViewController" customModule="NALS_Test" customModuleProvider="target">
             <connections>
+                <outlet property="errorLabel" destination="2d7-gi-Jcm" id="Foc-oD-IPw"/>
                 <outlet property="gradientView" destination="gdh-4v-mC2" id="kqT-0V-WQi"/>
                 <outlet property="tableView" destination="ZRA-YO-rhv" id="XH9-jQ-gSV"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -44,9 +46,16 @@
                         <constraint firstItem="TD9-jy-6JJ" firstAttribute="centerY" secondItem="KGa-xi-DUf" secondAttribute="centerY" id="qR5-f7-9cm"/>
                     </constraints>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ZRA-YO-rhv">
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Couldn't load data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2d7-gi-Jcm">
+                    <rect key="frame" x="137" y="437.5" width="140" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ZRA-YO-rhv">
                     <rect key="frame" x="0.0" y="92" width="414" height="804"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdh-4v-mC2">
                     <rect key="frame" x="0.0" y="876" width="414" height="20"/>
@@ -57,14 +66,16 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="gdh-4v-mC2" secondAttribute="bottom" id="7LY-7I-b7u"/>
                 <constraint firstItem="gdh-4v-mC2" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Asn-r3-VQL"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ZRA-YO-rhv" secondAttribute="trailing" id="BUH-bp-ZJF"/>
                 <constraint firstItem="KGa-xi-DUf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="LRW-NB-GmQ"/>
+                <constraint firstItem="2d7-gi-Jcm" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="M2g-B7-eje"/>
                 <constraint firstItem="ZRA-YO-rhv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Nu4-bR-fGI"/>
                 <constraint firstItem="gdh-4v-mC2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Sdg-Ts-9g6"/>
+                <constraint firstItem="2d7-gi-Jcm" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="VWL-M4-Yjj"/>
                 <constraint firstItem="ZRA-YO-rhv" firstAttribute="top" secondItem="KGa-xi-DUf" secondAttribute="bottom" id="jg1-Xr-dI3"/>
                 <constraint firstAttribute="bottom" secondItem="ZRA-YO-rhv" secondAttribute="bottom" id="mrH-oq-gAj"/>
                 <constraint firstAttribute="trailing" secondItem="KGa-xi-DUf" secondAttribute="trailing" id="rcF-GM-xvu"/>

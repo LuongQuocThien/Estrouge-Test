@@ -11,6 +11,13 @@ final class UserListViewController: UIViewController {
 
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var gradientView: UIView!
+    @IBOutlet private weak var errorLabel: UILabel!
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+        return refreshControl
+    }()
     
     var viewModel = UserListViewModel()
     
@@ -26,10 +33,17 @@ final class UserListViewController: UIViewController {
         configTableView()
     }
     
+    private func updateView() {
+        errorLabel.isHidden = !viewModel.users.isEmpty
+        tableView.isHidden = viewModel.users.isEmpty
+        tableView.reloadData()
+    }
+    
     private func configTableView() {
         tableView.register(UINib(nibName: "UserListTableCell", bundle: nil), forCellReuseIdentifier: "UserListTableCell")
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.refreshControl = refreshControl
     }
     
     private func configGradientView() {
@@ -49,11 +63,16 @@ final class UserListViewController: UIViewController {
             guard let this = self else { return }
             switch result {
             case .success:
-                this.tableView.reloadData()
+                this.updateView()
             case .failure(let error):
                 this.showAlert(message: error.localizedDescription)
             }
         }
+    }
+    
+    @objc private func didPullToRefresh() {
+        refreshControl.endRefreshing()
+        getUserList()
     }
 }
 
@@ -74,10 +93,15 @@ extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
         return 100
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return .leastNormalMagnitude
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let vc = UserProfileViewController()
+        vc.viewModel = viewModel.userProfileViewModel(indexPath: indexPath)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
