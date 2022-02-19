@@ -20,7 +20,7 @@ final class UserListViewModel {
         
         let user = users[indexPath.row]
         return UserListTableCellViewModel(imageData: user.imageData,
-                                          userName: user.userName,
+                                          userName: user.login,
                                           url: user.url)
     }
     
@@ -78,14 +78,14 @@ final class UserListViewModel {
 extension UserListViewModel {
     
     private func loadUserDetails(completion: @escaping () -> Void) {
-        let userNames = users.map({ $0.userName })
+        let logins = users.map({ $0.login })
         
         let dispatchGroup = DispatchGroup()
         
-        for userName in userNames {
+        for login in logins {
             dispatchGroup.enter()
             
-            getUserProfile(userName: userName) { [weak self] result in
+            getUserProfile(login: login) { [weak self] result in
                 dispatchGroup.leave()
                 
                 guard let this = self else {
@@ -93,8 +93,8 @@ extension UserListViewModel {
                 }
                 
                 switch result {
-                case .success((let userName, let response)):
-                    this.updateUserDetail(userName: userName, userInfo: response)
+                case .success((let login, let response)):
+                    this.updateUserDetail(login: login, userInfo: response)
                 case .failure(_):
                     break
                 }
@@ -106,8 +106,9 @@ extension UserListViewModel {
         }
     }
     
-    private func updateUserDetail(userName: String, userInfo: User) {
-        let user = users.first(where: { $0.userName == userName })
+    private func updateUserDetail(login: String, userInfo: User) {
+        let user = users.first(where: { $0.login == login })
+        user?.userName = userInfo.userName
         user?.location = userInfo.location
         user?.bio = userInfo.bio
         user?.pubRepo = userInfo.pubRepo
@@ -115,16 +116,16 @@ extension UserListViewModel {
         user?.following = userInfo.following
     }
     
-    func getUserProfile(userName: String?, completion: @escaping Completion<(String, User)>) {
-        guard let userName = userName else {
+    func getUserProfile(login: String?, completion: @escaping Completion<(String, User)>) {
+        guard let login = login else {
             return
         }
 
         let api = GetDetailAPI()
-        api.getUserDetail(userName: userName) { result in
+        api.getUserDetail(login: login) { result in
             switch result {
             case .success(let response):
-                completion(.success((userName, response)))
+                completion(.success((login, response)))
             case .failure(let error):
                 completion(.failure(error))
             }
