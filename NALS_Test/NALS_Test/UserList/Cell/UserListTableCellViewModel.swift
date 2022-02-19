@@ -9,12 +9,12 @@ import Foundation
 
 final class UserListTableCellViewModel {
     
-    var avataUrl: String?
+    var imageData: Data?
     var userName: String?
     var url: String?
     
-    init(avataUrl: String?, userName: String?, url: String?) {
-        self.avataUrl = avataUrl
+    init(imageData: Data?, userName: String?, url: String?) {
+        self.imageData = imageData
         self.userName = userName
         self.url = url
     }

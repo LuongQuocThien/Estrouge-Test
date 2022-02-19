@@ -15,11 +15,10 @@ final class UserProfileViewModel {
         case stats
     }
     
-    var userName: String?
     var user: User?
     
-    init(userName: String?) {
-        self.userName = userName
+    init(user: User?) {
+        self.user = user
     }
     
     func numberOfRow() -> Int {
@@ -27,7 +26,7 @@ final class UserProfileViewModel {
     }
     
     func userListTableCellViewModel() -> UserListTableCellViewModel? {
-        return UserListTableCellViewModel(avataUrl: user?.avataUrl,
+        return UserListTableCellViewModel(imageData: user?.imageData,
                                           userName: user?.userName, url: user?.location)
     }
     
@@ -42,7 +41,7 @@ final class UserProfileViewModel {
     }
     
     func getUserProfile(completion: @escaping APICompletion) {
-        guard let userName = userName else {
+        guard let userName = user?.userName else {
             return
         }
 
@@ -54,7 +53,7 @@ final class UserProfileViewModel {
             }
             switch result {
             case .success(let response):
-                this.user = response
+                this.user?.updateData(newData: response)
                 completion(.success)
             case .failure(let error):
                 completion(.failure(error))

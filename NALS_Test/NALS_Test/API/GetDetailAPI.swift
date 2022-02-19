@@ -14,7 +14,7 @@ struct GetDetailAPI {
     func getUserDetail(userName: String, completion: @escaping Completion<User>) {
         let path = endpoint + "/" + userName
         
-        Alamofire.request(path, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON { response in
+        Alamofire.SessionManager.default.requestWithoutCache(path, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON { response in
             switch response.result {
             case .success(let value):
                 guard let data = try?

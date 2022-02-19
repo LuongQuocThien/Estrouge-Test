@@ -5,41 +5,49 @@
 //  Created by Thien Luong Q. VN.Danang on 18/02/2022.
 //
 
-import Foundation
+import Realm
+import RealmSwift
 
-final class User: Codable {
+final class User: Object, Codable {
     
-    var avataUrl: String?
-    var userName: String?
-    var url: String?
-    var location: String?
-    var bio: String?
-    var pubRepo: Int?
-    var follower: Int?
-    var following: Int?
+    @objc dynamic var avataUrl: String? = nil
+    @objc dynamic var imageData: Data? = nil
+    @objc dynamic var userName: String? = nil
+    @objc dynamic var url: String? = nil
+    @objc dynamic var location: String? = nil
+    @objc dynamic var bio: String? = nil
+    @objc dynamic var pubRepo: Int = 0
+    @objc dynamic var follower: Int = 0
+    @objc dynamic var following: Int = 0
     
-    init(avataUrl: String?, userName: String?, url: String?,
-         location: String?, bio: String?, pubRepo: Int?,
-         follower: Int?, following: Int?) {
-        self.avataUrl = avataUrl
-        self.userName = userName
-        self.url = url
-        self.location = location
-        self.bio = bio
-        self.pubRepo = pubRepo
-        self.follower = follower
-        self.following = following
+    override class func primaryKey() -> String? {
+        return "userName"
     }
     
-    init(from decoder: Decoder) throws {
+    required override init() {
+        super.init()
+    }
+    
+    convenience required init(from decoder: Decoder) throws {
+        self.init()
         avataUrl = decoder.decode(CodingKeys.avataUrl, as: String.self)
         userName = decoder.decode(CodingKeys.userName, as: String.self)
         url = decoder.decode(CodingKeys.url, as: String.self)
         location = decoder.decode(CodingKeys.location, as: String.self)
         bio = decoder.decode(CodingKeys.bio, as: String.self)
-        pubRepo = decoder.decode(CodingKeys.pubRepo, as: Int.self)
-        follower = decoder.decode(CodingKeys.follower, as: Int.self)
-        following = decoder.decode(CodingKeys.following, as: Int.self)
+        pubRepo = decoder.decode(CodingKeys.pubRepo, as: Int.self) ?? 0
+        follower = decoder.decode(CodingKeys.follower, as: Int.self) ?? 0
+        following = decoder.decode(CodingKeys.following, as: Int.self) ?? 0
+    }
+    
+    func updateData(newData: User) {
+        DBHelper.update {
+            self.location = newData.location
+            self.bio = newData.bio
+            self.pubRepo = newData.pubRepo
+            self.follower = newData.follower
+            self.following = newData.following
+        }
     }
 }
 

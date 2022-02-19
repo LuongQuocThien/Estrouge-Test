@@ -19,7 +19,7 @@ final class UserListViewModel {
         guard indexPath.row < users.count else { return nil }
         
         let user = users[indexPath.row]
-        return UserListTableCellViewModel(avataUrl: user.avataUrl,
+        return UserListTableCellViewModel(imageData: user.imageData,
                                           userName: user.userName,
                                           url: user.url)
     }
@@ -27,8 +27,12 @@ final class UserListViewModel {
     func userProfileViewModel(indexPath: IndexPath) -> UserProfileViewModel? {
         guard indexPath.row < users.count else { return nil }
         
-        let userName = users[indexPath.row].userName
-        return UserProfileViewModel(userName: userName)
+        let user = users[indexPath.row]
+        return UserProfileViewModel(user: user)
+    }
+    
+    func getDBData() {
+        users = DBHelper.getUsers()
     }
     
     func getUserList(completion: @escaping APICompletion) {
@@ -40,16 +44,37 @@ final class UserListViewModel {
             }
             switch result {
             case .success(let response):
-                this.users = response
-                completion(.success)
+                this.downloadAvataImages(response: response) { loadedImageUserList in
+                    this.users = loadedImageUserList
+                    this.saveDB()
+                    completion(.success)
+                }
             case .failure(let error):
                 completion(.failure(error))
             }
         }
     }
+    
+    private func downloadAvataImages(response: [User], completion: @escaping ([User]) -> Void) {
+        let avataUrls = response.map({ $0.avataUrl ?? "" })
+        let loadedImageUserList = response
+        
+        ImageManager.shared.downloadImage(imageURLList: avataUrls) { images in
+            for (index, image) in images.enumerated() {
+                let data = image?.pngData()
+                loadedImageUserList[index].imageData = data
+            }
+            completion(loadedImageUserList)
+        }
+    }
+    
+    func saveDB() {
+        guard !users.isEmpty else { return }
+        DBHelper.add(users)
+    }
 }
 
-#warning("If you dont want to load api in detail, use this code")
+#warning("If you want - Use this code to load all user profile")
 extension UserListViewModel {
     
     private func loadUserDetails(completion: @escaping () -> Void) {
