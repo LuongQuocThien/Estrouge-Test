@@ -180,7 +180,6 @@
 			children = (
 				EA909BBA27C1075100467D81 /* Helper */,
 				EA909BB927C1063C00467D81 /* Response */,
-				EA909BB627C1056D00467D81 /* ViewModel */,
 				EA909BB727C105BB00467D81 /* RequiredTaskTests.swift */,
 			);
 			path = NALS_TestTests;
@@ -278,13 +277,6 @@
 				EA909BB427C0EF6200467D81 /* ImageManager.swift */,
 			);
 			path = Manager;
-			sourceTree = "<group>";
-		};
-		EA909BB627C1056D00467D81 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		EA909BB927C1063C00467D81 /* Response */ = {
