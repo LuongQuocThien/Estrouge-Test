@@ -11,18 +11,39 @@ final class UserProfileViewController: UIViewController {
 
     @IBOutlet private weak var tableView: UITableView!
     
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+        return refreshControl
+    }()
+    
     var viewModel: UserProfileViewModel? {
         didSet {
-            updateView()
+            getUserProfile()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configTableView()
+    }
+    
+    private func getUserProfile() {
+        HUD.show()
+        viewModel?.getUserProfile { [weak self] result in
+            HUD.dismiss()
+            guard let this = self else { return }
+            switch result {
+            case .success:
+                this.updateView()
+            case .failure(let error):
+                this.showAlert(message: error.localizedDescription)
+            }
+        }
     }
     
     private func updateView() {
-        configTableView()
+        tableView.reloadData()
     }
     
     private func configTableView() {
@@ -31,6 +52,12 @@ final class UserProfileViewController: UIViewController {
         tableView.register(UINib(nibName: "UserStatsTableCell", bundle: nil), forCellReuseIdentifier: "UserStatsTableCell")
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.refreshControl = refreshControl
+    }
+    
+    @objc private func didPullToRefresh() {
+        refreshControl.endRefreshing()
+        getUserProfile()
     }
     
     @IBAction func onBack(_ sender: UIButton) {
@@ -70,5 +97,9 @@ extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return .leastNormalMagnitude
     }
 }
