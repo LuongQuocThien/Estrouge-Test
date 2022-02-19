@@ -27,8 +27,8 @@ final class UserListTableCell: UITableViewCell {
     }
     
     private func updateView() {
-        avataImageView.loadImage(imageUrl: viewModel?.user?.avataUrl)
-        userNameLabel.text = viewModel?.user?.userName
-        gitUrlLabel.text = viewModel?.user?.url
+        avataImageView.loadImage(imageUrl: viewModel?.avataUrl)
+        userNameLabel.text = viewModel?.userName
+        gitUrlLabel.text = viewModel?.url
     }
 }
