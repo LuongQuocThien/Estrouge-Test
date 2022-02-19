@@ -9,8 +9,10 @@ import UIKit
 
 final class UserProfileViewController: UIViewController {
 
+    // MARK: - IBOutlet
     @IBOutlet private weak var tableView: UITableView!
     
+    // MARK: - Properties
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
@@ -23,11 +25,13 @@ final class UserProfileViewController: UIViewController {
         }
     }
     
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configTableView()
     }
     
+    // MARK: - Private func
     private func getUserProfile() {
         HUD.show()
         viewModel?.getUserProfile { [weak self] result in
@@ -55,16 +59,19 @@ final class UserProfileViewController: UIViewController {
         tableView.refreshControl = refreshControl
     }
     
+    // MARK: - Objc
     @objc private func didPullToRefresh() {
         refreshControl.endRefreshing()
         getUserProfile()
     }
     
+    // MARK: - IBAction
     @IBAction func onBack(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
 }
 
+// MARK: - UITableViewDataSource, UITableViewDelegate
 extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

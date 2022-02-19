@@ -9,14 +9,17 @@ import UIKit
 
 final class AboutUserTableCell: UITableViewCell {
 
+    // MARK: - IBOutlet
     @IBOutlet private weak var bioLabel: UILabel!
     
+    // MARK: - Properties
     var viewModel: AboutUserTableCellViewModel? {
         didSet {
             updateView()
         }
     }
     
+    // MARK: - Private func
     private func updateView() {
         bioLabel.text = viewModel?.about
     }

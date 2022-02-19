@@ -9,11 +9,13 @@ import UIKit
 
 final class UserListViewController: UIViewController {
 
+    // MARK: - IBOutlet
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var gradientView: UIView!
     @IBOutlet private weak var errorLabel: UILabel!
     @IBOutlet private weak var headerHeightConstraint: NSLayoutConstraint!
     
+    // MARK: - Properties
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
@@ -24,6 +26,7 @@ final class UserListViewController: UIViewController {
     
     private var previousScrollOffset: CGFloat = 0
     
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
@@ -37,6 +40,7 @@ final class UserListViewController: UIViewController {
         configGradientView()
     }
     
+    // MARK: - Private func
     private func configView() {
         configTableView()
     }
@@ -85,12 +89,14 @@ final class UserListViewController: UIViewController {
         viewModel.getDBData()
     }
     
+    // MARK: - Objc
     @objc private func didPullToRefresh() {
         refreshControl.endRefreshing()
         getUserList()
     }
 }
 
+// MARK: - UITableViewDataSource, UITableViewDelegate
 extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -121,6 +127,7 @@ extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+// MARK: - UIScrollViewDelegate
 extension UserListViewController: UIScrollViewDelegate {
     
     private func updateBarView(isShow: Bool) {
@@ -175,6 +182,7 @@ extension UserListViewController: UIScrollViewDelegate {
     }
 }
 
+// MARK: - Config
 extension UserListViewController {
     
     struct Config {

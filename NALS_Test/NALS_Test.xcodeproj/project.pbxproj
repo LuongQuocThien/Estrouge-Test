@@ -33,7 +33,6 @@
 		EA909BB227C0ACD000467D81 /* DBHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA909BB127C0ACD000467D81 /* DBHelper.swift */; };
 		EA909BB527C0EF6200467D81 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA909BB427C0EF6200467D81 /* ImageManager.swift */; };
 		EA909BB827C105BB00467D81 /* RequiredTaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA909BB727C105BB00467D81 /* RequiredTaskTests.swift */; };
-		EA909BBE27C1079800467D81 /* DataExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA909BBD27C1079800467D81 /* DataExt.swift */; };
 		EA909BC027C11D8C00467D81 /* UserProfileResult.json in Resources */ = {isa = PBXBuildFile; fileRef = EA909BBF27C107C500467D81 /* UserProfileResult.json */; };
 		EAA3073D27BFD9BB00BC52FA /* GetUserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA3073C27BFD9BB00BC52FA /* GetUserAPI.swift */; };
 		EAA3073F27BFD9C700BC52FA /* GetDetailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA3073E27BFD9C700BC52FA /* GetDetailAPI.swift */; };
@@ -86,7 +85,6 @@
 		EA909BB127C0ACD000467D81 /* DBHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBHelper.swift; sourceTree = "<group>"; };
 		EA909BB427C0EF6200467D81 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		EA909BB727C105BB00467D81 /* RequiredTaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequiredTaskTests.swift; sourceTree = "<group>"; };
-		EA909BBD27C1079800467D81 /* DataExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExt.swift; sourceTree = "<group>"; };
 		EA909BBF27C107C500467D81 /* UserProfileResult.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = UserProfileResult.json; sourceTree = "<group>"; };
 		EAA3073C27BFD9BB00BC52FA /* GetUserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserAPI.swift; sourceTree = "<group>"; };
 		EAA3073E27BFD9C700BC52FA /* GetDetailAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDetailAPI.swift; sourceTree = "<group>"; };
@@ -178,7 +176,6 @@
 		EA1D2A8127BFB79C00862B47 /* NALS_TestTests */ = {
 			isa = PBXGroup;
 			children = (
-				EA909BBA27C1075100467D81 /* Helper */,
 				EA909BB927C1063C00467D81 /* Response */,
 				EA909BB727C105BB00467D81 /* RequiredTaskTests.swift */,
 			);
@@ -285,14 +282,6 @@
 				EA909BBF27C107C500467D81 /* UserProfileResult.json */,
 			);
 			path = Response;
-			sourceTree = "<group>";
-		};
-		EA909BBA27C1075100467D81 /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-				EA909BBD27C1079800467D81 /* DataExt.swift */,
-			);
-			path = Helper;
 			sourceTree = "<group>";
 		};
 		EAA3073927BFD78900BC52FA /* API */ = {
@@ -522,7 +511,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA909BBE27C1079800467D81 /* DataExt.swift in Sources */,
 				EA909BB827C105BB00467D81 /* RequiredTaskTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
