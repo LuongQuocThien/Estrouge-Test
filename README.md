@@ -6,10 +6,10 @@
 
 ## Project setup
 1. Get the repository
-2. Go to the root of the repository and run $ bundle exec pod install
+2. Go to the root of the repository and run `$ bundle exec pod install`
 3. Enjoy
 
 ## Frameworks:
-Network: Alamofire
-Utilities: SDWebImage, SVProgressHUD
-Database: RealmSwift
+1. Network: Alamofire
+2. Utilities: SDWebImage, SVProgressHUD
+3. Database: RealmSwift
