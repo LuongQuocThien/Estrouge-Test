@@ -9,9 +9,13 @@ import Foundation
 
 final class UserListTableCellViewModel {
     
-    var user: User?
+    var avataUrl: String?
+    var userName: String?
+    var url: String?
     
-    init(user: User?) {
-        self.user = user
+    init(avataUrl: String?, userName: String?, url: String?) {
+        self.avataUrl = avataUrl
+        self.userName = userName
+        self.url = url
     }
 }

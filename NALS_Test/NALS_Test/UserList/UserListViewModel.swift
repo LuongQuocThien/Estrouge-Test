@@ -17,7 +17,9 @@ final class UserListViewModel {
     
     func userListTableCellViewModel(indexPath: IndexPath) -> UserListTableCellViewModel? {
         guard indexPath.row < users.count else { return nil }
-        return UserListTableCellViewModel(user: users[indexPath.row])
+        return UserListTableCellViewModel(avataUrl: users[indexPath.row].avataUrl,
+                                          userName: users[indexPath.row].userName,
+                                          url: users[indexPath.row].url)
     }
     
     func getUserList(completion: @escaping APICompletion) {
