@@ -12,6 +12,7 @@ final class UserListViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var gradientView: UIView!
     @IBOutlet private weak var errorLabel: UILabel!
+    @IBOutlet private weak var headerHeightConstraint: NSLayoutConstraint!
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -21,6 +22,8 @@ final class UserListViewController: UIViewController {
     
     var viewModel = UserListViewModel()
     
+    private var previousScrollOffset: CGFloat = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
@@ -29,8 +32,12 @@ final class UserListViewController: UIViewController {
         getUserList()
     }
     
-    private func configView() {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         configGradientView()
+    }
+    
+    private func configView() {
         configTableView()
     }
     
@@ -50,10 +57,10 @@ final class UserListViewController: UIViewController {
     private func configGradientView() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = gradientView.bounds
-        gradientLayer.colors = [UIColor.white.withAlphaComponent(0.5).cgColor, UIColor.white.cgColor]
+        gradientLayer.colors = [UIColor.white.withAlphaComponent(0.7).cgColor, UIColor.white.cgColor]
         gradientLayer.shouldRasterize = true
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
         gradientView.layer.addSublayer(gradientLayer)
     }
     
@@ -111,5 +118,66 @@ extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
         let vc = UserProfileViewController()
         vc.viewModel = viewModel.userProfileViewModel(indexPath: indexPath)
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension UserListViewController: UIScrollViewDelegate {
+    
+    private func updateBarView(isShow: Bool) {
+        view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.2, animations: {
+            self.headerHeightConstraint.constant = isShow ? Config.barViewHeight : 0
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+        let scrollDiff = scrollView.contentOffset.y - previousScrollOffset
+        let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height
+
+        let isScrollingDown = scrollDiff > 0 && scrollView.contentOffset.y > 0
+        let isScrollingUp = scrollDiff < 0 && scrollView.contentOffset.y < maxOffset
+
+        var newHeight = headerHeightConstraint.constant
+        if isScrollingDown {
+            newHeight = max(0, headerHeightConstraint.constant - abs(scrollDiff))
+        } else if isScrollingUp {
+            newHeight = min(Config.barViewHeight, headerHeightConstraint.constant + abs(scrollDiff))
+        }
+
+        if newHeight != self.headerHeightConstraint.constant {
+            headerHeightConstraint.constant = newHeight
+            setScrollPosition(previousScrollOffset)
+        }
+
+        previousScrollOffset = scrollView.contentOffset.y
+    }
+
+    private func setScrollPosition(_ position: CGFloat) {
+        tableView.contentOffset = CGPoint(x: tableView.contentOffset.x, y: position)
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        scrollViewDidStopScrolling()
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            scrollViewDidStopScrolling()
+        }
+    }
+
+    private func scrollViewDidStopScrolling() {
+
+        let isShow = headerHeightConstraint.constant > Config.barViewHeight / 2
+        updateBarView(isShow: isShow)
+    }
+}
+
+extension UserListViewController {
+    
+    struct Config {
+        static let barViewHeight: CGFloat = 48
     }
 }

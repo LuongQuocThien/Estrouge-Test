@@ -12,8 +12,9 @@ final class User: Object, Codable {
     
     @objc dynamic var avataUrl: String? = nil
     @objc dynamic var imageData: Data? = nil
-    @objc dynamic var userName: String? = nil
+    @objc dynamic var login: String? = nil
     @objc dynamic var url: String? = nil
+    @objc dynamic var userName: String? = nil
     @objc dynamic var location: String? = nil
     @objc dynamic var bio: String? = nil
     @objc dynamic var pubRepo: Int = 0
@@ -21,7 +22,7 @@ final class User: Object, Codable {
     @objc dynamic var following: Int = 0
     
     override class func primaryKey() -> String? {
-        return "userName"
+        return "login"
     }
     
     required override init() {
@@ -31,8 +32,9 @@ final class User: Object, Codable {
     convenience required init(from decoder: Decoder) throws {
         self.init()
         avataUrl = decoder.decode(CodingKeys.avataUrl, as: String.self)
-        userName = decoder.decode(CodingKeys.userName, as: String.self)
+        login = decoder.decode(CodingKeys.login, as: String.self)
         url = decoder.decode(CodingKeys.url, as: String.self)
+        userName = decoder.decode(CodingKeys.userName, as: String.self)
         location = decoder.decode(CodingKeys.location, as: String.self)
         bio = decoder.decode(CodingKeys.bio, as: String.self)
         pubRepo = decoder.decode(CodingKeys.pubRepo, as: Int.self) ?? 0
@@ -42,6 +44,7 @@ final class User: Object, Codable {
     
     func updateData(newData: User) {
         DBHelper.update {
+            self.userName = newData.userName
             self.location = newData.location
             self.bio = newData.bio
             self.pubRepo = newData.pubRepo
@@ -54,7 +57,8 @@ final class User: Object, Codable {
 extension User {
     enum CodingKeys: String, CodingKey {
         case avataUrl = "avatar_url"
-        case userName = "login"
+        case login
+        case userName = "name"
         case url
         case location
         case bio

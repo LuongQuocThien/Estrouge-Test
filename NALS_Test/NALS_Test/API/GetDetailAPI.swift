@@ -11,8 +11,8 @@ struct GetDetailAPI {
     
     let endpoint = "https://api.github.com/users"
     
-    func getUserDetail(userName: String, completion: @escaping Completion<User>) {
-        let path = endpoint + "/" + userName
+    func getUserDetail(login: String, completion: @escaping Completion<User>) {
+        let path = endpoint + "/" + login
         
         Alamofire.SessionManager.default.requestWithoutCache(path, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON { response in
             switch response.result {

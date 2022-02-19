@@ -41,12 +41,12 @@ final class UserProfileViewModel {
     }
     
     func getUserProfile(completion: @escaping APICompletion) {
-        guard let userName = user?.userName else {
+        guard let login = user?.login else {
             return
         }
 
         let api = GetDetailAPI()
-        api.getUserDetail(userName: userName) { [weak self] result in
+        api.getUserDetail(login: login) { [weak self] result in
             guard let this = self else {
                 completion(.failure(Api.Error.cancelRequest))
                 return
